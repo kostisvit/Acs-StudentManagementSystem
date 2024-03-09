@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     
     # External apps
     'crispy_forms',
+    'crispy_bootstrap4',
 ]
 
 AUTH_USER_MODEL = "accounts.CustomUser"
