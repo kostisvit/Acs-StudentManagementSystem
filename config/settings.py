@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'pages',
+    
+    # External apps
+    'crispy_forms',
 ]
 
 AUTH_USER_MODEL = "accounts.CustomUser"
