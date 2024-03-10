@@ -4,14 +4,14 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<div class="container">
+
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">Logout</a></p>
+{% include 'partials/navbar.html' %}
+
 {% else %}
   <h2>Welcome to Student Management System</h2>
   <a href="{% url 'login' %}" class="btn btn-primary">Login</a> 
   <a href="" class="btn btn-primary">SignUp</a>
 {% endif %}
-</div>
+
 {% endblock %}
