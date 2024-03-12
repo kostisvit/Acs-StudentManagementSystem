@@ -11,13 +11,10 @@ class Student(models.Model):
     address = models.CharField(max_length=100)
     city = models.CharField(max_length=50)
     email = models.EmailField()
-    contact_num = models.IntegerField(default=1234567)
+    contact_num = models.CharField(max_length=50,null=True,blank=True)
     date_of_birth = models.DateField()
     course = models.CharField(max_length=50)
     stu_id = models.CharField(max_length=50, unique=True,editable=False,default=create_new_stu_id)
-    user_name = models.CharField(max_length=50)
-    password = models.CharField(max_length=100)
-    
 
     def __str__(self):
         return self.full_name
