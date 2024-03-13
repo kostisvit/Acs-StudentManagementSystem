@@ -10,23 +10,32 @@
   {{ form|crispy }}
   <button type="submit">Log in</button>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#id_username').on('input', function() {
-                var username = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '/get_companies/',  // URL to fetch associated companies
-                    data: {'username': username},
-                    success: function(data) {
-                        $('#id_company').empty();
-                        $.each(data.companies, function(key, value) {
-                            $('#id_company').append($('<option>').text(value).attr('value', key));
-                        });
-                    }
-                });
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#id_username').change(function(){
+            var selectedUsername = $(this).val();
+            $.ajax({
+                url: '/filter-companies/',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    'username': selectedUsername
+                },
+                success: function(data){
+                    $('#id_company').empty();
+                    $.each(data, function(index, company){
+                        $('#id_company').append($('<option>', {
+                            value: company.id,
+                            text: company.name
+                        }));
+                    });
+                },
+                error: function(xhr, status, error){
+                    console.error(error);
+                }
             });
         });
-    </script>
+    });
+</script>
 {% endblock content %}

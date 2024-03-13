@@ -4,32 +4,54 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from .forms import LoginForm
 from django.http import JsonResponse
-from .models import CustomUser
+from .models import CustomUser,Company
 
 
 def login_view(request):
     if request.method == 'POST':
-        form = LoginForm(request.POST)
+        form = LoginForm(request, data=request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            company = form.cleaned_data['company']
-            user = authenticate(request, username=username, password=password)
-            if user is not None and user.company == company:
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            company = form.cleaned_data.get('company')
+            user = authenticate(request, username=username, password=password, company=company)
+            if user is not None:
                 login(request, user)
-                return redirect('home')  # Replace 'home' with your desired redirect URL
-            else:
-                # Handle invalid login
-                pass
+                # Redirect to a success page.
+                return redirect('home')
     else:
         form = LoginForm()
     return render(request, 'account/login.html', {'form': form})
 
+    # if request.method == 'POST':
+    #     form = LoginForm(request.POST)
+    #     if form.is_valid():
+    #         username = form.cleaned_data['username']
+    #         password = form.cleaned_data['password']
+    #         company_id = form.cleaned_data['company'].id
+    #         user = authenticate(request, username=username, password=password, company=company_id)
+    #         if user is not None:
+    #             if user.company_id == company_id:
+    #                 login(request, user)
+    #             return redirect('home')  # Replace 'home' with your desired redirect URL
+    #         else:
+    #             # Handle invalid login
+    #             pass
+    # else:
+    #     form = LoginForm()
+    # return render(request, 'account/login.html', {'form': form})
 
-def get_user_companies(request):
-    username = request.GET.get('username', None)
-    companies = list(CustomUser.objects.filter(user__username=username).values('company'))
-    return JsonResponse({'companies': companies})
+
+def filter_companies(request):
+    if request.method == 'GET' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        username = request.GET.get('username')
+        if username:
+            user = CustomUser.objects.filter(username=username).first()
+            if user:
+                companies = Company.objects.filter(id=user.company.id)
+                data = [{'id': company.id, 'name': company.company_name} for company in companies]
+                return JsonResponse(data, safe=False)
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
 

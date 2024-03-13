@@ -6,7 +6,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
     # User Management
-    path('accounts/', include('accounts.urls')),
+    path('', include('accounts.urls')),
     
     # Local apps
     path('', include('pages.urls')),
