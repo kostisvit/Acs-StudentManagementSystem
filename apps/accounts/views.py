@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from .forms import LoginForm
 from django.http import JsonResponse
-from .models import CustomUser,Company
+from .models import CustomUser,Company,CustomUserCompany
 
 
 def login_view(request):
@@ -48,10 +48,23 @@ def filter_companies(request):
         if username:
             user = CustomUser.objects.filter(username=username).first()
             if user:
-                companies = Company.objects.filter(id=user.company.id)
+                companies = Company.objects.filter(id=user.id)
                 data = [{'id': company.id, 'name': company.company_name} for company in companies]
                 return JsonResponse(data, safe=False)
     return JsonResponse({'error': 'Invalid request'}, status=400)
+
+
+
+# def filter_companies(request):
+#     if request.method == 'GET' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+#         username = request.GET.get('username')
+#         if username:
+#             user = CustomUser.objects.filter(username=username).first()
+#             if user:
+#                 companies = Company.objects.filter(id=user.company.id)
+#                 data = [{'id': company.id, 'name': company.company_name} for company in companies]
+#                 return JsonResponse(data, safe=False)
+#     return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
 
