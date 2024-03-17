@@ -4,10 +4,16 @@ from .utils import create_new_stu_id
 
 
 class Student(models.Model):
+    GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('O', 'Other')
+    )
+    
     full_name = models.CharField(max_length=100)
     father_name = models.CharField(max_length=100)
     mother_name = models.CharField(max_length=100)
-    gender = models.CharField(max_length=50, default="Male")
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     address = models.CharField(max_length=100)
     city = models.CharField(max_length=50)
     email = models.EmailField()
