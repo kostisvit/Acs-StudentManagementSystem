@@ -5,8 +5,16 @@ from django.utils.translation import gettext_lazy as _
 from .managers import CustomUserManager
 
 
+class Company(models.Model):
+    name = models.CharField(max_length=100)
+    # Add other fields as needed
+    
+    def __str__(self):
+        return self.name
+
 class CustomUser(AbstractUser):
     username = None
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='employees',default='1')
     email = models.EmailField(_("email address"), unique=True)
 
     USERNAME_FIELD = "email"
