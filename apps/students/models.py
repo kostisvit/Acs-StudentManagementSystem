@@ -2,8 +2,6 @@ import uuid
 from django.db import models
 from .utils import create_new_stu_id
 
-from accounts.models import CustomUserCompany
-
 
 class Student(models.Model):
     GENDER_CHOICES = (
@@ -23,7 +21,6 @@ class Student(models.Model):
     date_of_birth = models.DateField()
     course = models.CharField(max_length=50)
     stu_id = models.CharField(max_length=50, unique=True,editable=False,default=create_new_stu_id)
-    company = models.ForeignKey(CustomUserCompany, on_delete=models.CASCADE,related_name='students',default='1')
 
     def __str__(self):
         return self.full_name
