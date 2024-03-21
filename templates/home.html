@@ -1,4 +1,5 @@
 {% extends '_base.html' %}
+{% load student_count %}
 
 {% load crispy_forms_tags %}
 {% block title %}Home{% endblock %}
@@ -6,13 +7,35 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-
+<body>
+  <div class="container-fluid d-flex justify-content-center">
+      <div class="row">
+          <div class="col-md-auto">
+            <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+              <div class="card-header">Online Students</div>
+              <div class="card-body">
+                <h5 class="card-title">Number of online students: {% online_student_count %}</h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-auto">
+            <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+              <div class="card-header">Offline Students</div>
+              <div class="card-body">
+              <h5 class="card-title">Number of offline students: {% offline_student_count %}</h5>
+              </div>
+            </div>
+          </div>
+      </div>
+  </div>
+</body>
 {% else %}
 <div class="container">
   <h2>Welcome to Student Management System</h2>
   <a href="{% url 'login' %}" class="btn btn-primary">Login</a> 
   <a href="" class="btn btn-primary">SignUp</a>
 </div>
+
 {% endif %}
 
 {% endblock %}

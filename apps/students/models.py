@@ -21,6 +21,7 @@ class Student(models.Model):
     contact_num = models.CharField(max_length=50,null=True,blank=True)
     date_of_birth = models.DateField()
     course = models.CharField(max_length=50)
+    is_online = models.BooleanField(default=False)
     stu_id = models.CharField(max_length=50, unique=True,editable=False,default=create_new_stu_id)
 
     def __str__(self):
