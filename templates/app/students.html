@@ -3,8 +3,8 @@
 {% block content %}
 
 
-  {% for student in object_list %}
-    {{student.full_name}}
+  {% for obj in object_list %}
+    {{obj.full_name}} - {{obj.company}}
   {% endfor %}
 
 {% endblock %}

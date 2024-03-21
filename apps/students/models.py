@@ -2,6 +2,7 @@ import uuid
 from django.db import models
 from .utils import create_new_stu_id
 
+from accounts.models import Company
 
 class Student(models.Model):
     GENDER_CHOICES = (
@@ -9,7 +10,7 @@ class Student(models.Model):
         ('F', 'Female'),
         ('O', 'Other')
     )
-    
+    company = models.ForeignKey(Company, on_delete=models.CASCADE,default='1')
     full_name = models.CharField(max_length=100)
     father_name = models.CharField(max_length=100)
     mother_name = models.CharField(max_length=100)
