@@ -1,4 +1,4 @@
-
+{% load custom_filters %}
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
@@ -38,7 +38,7 @@
                 <li>
                     <a href="#profileSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                     {% if user.is_authenticated %}
-                      {{ user.email }}
+                    {{ user.email|extract_username }}
                       {% else %}
                       Profile
                     {% endif %}</a>
