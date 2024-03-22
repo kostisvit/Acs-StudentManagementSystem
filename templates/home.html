@@ -1,5 +1,4 @@
 {% extends '_base.html' %}
-{% load student_count %}
 
 {% load crispy_forms_tags %}
 {% block title %}Home{% endblock %}
@@ -14,7 +13,7 @@
             <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
               <div class="card-header">Online Students</div>
               <div class="card-body">
-                <h5 class="card-title">Number of online students: {% online_student_count %}</h5>
+                <h5 class="card-title">Number of online students: {{ online_students_count }}</h5>
               </div>
             </div>
           </div>
@@ -22,7 +21,7 @@
             <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
               <div class="card-header">Offline Students</div>
               <div class="card-body">
-              <h5 class="card-title">Number of offline students: {% offline_student_count %}</h5>
+              <h5 class="card-title">Number of offline students: {{ offline_students_count }}</h5>
               </div>
             </div>
           </div>
