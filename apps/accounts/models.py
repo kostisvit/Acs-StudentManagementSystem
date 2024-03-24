@@ -7,14 +7,14 @@ from .managers import CustomUserManager
 
 class Company(models.Model):
     name = models.CharField(max_length=100)
-    user = models.ForeignKey('CustomUser', on_delete=models.CASCADE,related_name="companies",default='1')
+    user = models.ForeignKey('CustomUser', on_delete=models.CASCADE,related_name="companies")
     
     def __str__(self):
         return self.name
 
 class CustomUser(AbstractUser):
     username = None
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='employees',default='1')
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name="employees",default="1")
     email = models.EmailField(_("email address"), unique=True)
 
     USERNAME_FIELD = "email"
