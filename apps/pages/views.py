@@ -32,8 +32,8 @@ class CompanyInfoListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         company_id = self.kwargs['company_id']
-        context['online_students_count'] = self.get_queryset().filter(is_online=True,company_id=company_id).count()
-        context['offline_students_count'] = self.get_queryset().filter(is_online=False,company_id=company_id).count()
+        context['online_students_count'] = self.get_queryset().filter(is_online=True,company=company_id).count()
+        context['offline_students_count'] = self.get_queryset().filter(is_online=False,company=company_id).count()
         return context
     
     def get_queryset(self):
