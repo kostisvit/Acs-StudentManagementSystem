@@ -11,11 +11,9 @@ class CompanyListView(LoginRequiredMixin,ListView):
     context_object_name = 'online_companys'
     
     def get_queryset(self):
-        # Retrieve the user
-        user = self.request.user
-        # Retrieve all companies associated with the user
-        companies = Company.objects.filter(usercompanyrelation__user=user)
-        return companies
+        # Assuming you have a ForeignKey relationship between User and Company
+        # Adjust this filtering according to your actual model structure
+        return Company.objects.filter(user=self.request.user)
 
 
 
@@ -26,8 +24,9 @@ class CompanyInfoListView(ListView):
     
     
     def get_queryset(self):
-        company_id = self.kwargs['company_id']  # Assuming you pass the company as a URL parameter
-        return Student.objects.filter(company_id=company_id)
+        # Assuming you have a ForeignKey relationship between User and Company
+        # Adjust this filtering according to your actual model structure
+        return Student.objects.filter(user=self.request.user)
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
